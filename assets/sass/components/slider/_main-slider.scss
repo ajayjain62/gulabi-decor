@@ -1,107 +1,81 @@
 /******************************** 
     Main Slider
- ********************************/
-
+********************************/
+.slick-slide {
+    display: none;
+    float: left;
+    height: 450px;
+    min-height: 1px;
+}
 .slick-slider {
+  height: 434px !important;
   background: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.slider-height {
-  height: 855px;
-  @include max-screen(1200, 1400) {
-    height: 595px;
-  }
-  @include max-screen(992, 1199) {
-    height: 595px;
-  }
-  @include max-screen(768, 991) {
-    height: 450px;
-  }
-  @include max-screen(767) {
-    height: 300px;
-  }
-  @include max-screen(576, 767) {
-    height: 450px;
-  }
-}
-.slider-height2 {
-  height: 714px;
-  @include max-screen(1200, 1400) {
-    height: 600px;
-  }
-  @include max-screen(992, 1199) {
-    height: 480px;
-  }
-  @include max-screen(768, 991) {
-    height: 400px;
-  }
-  @include max-screen(767) {
-    height: 300px;
-  }
-  @include max-screen(576, 767) {
-    height: 350px;
-  }
-}
-
-.slider-content-width {
-  max-width: 52%;
-  @include max-screen(768, 1500) {
-    max-width: 52%;
-  }
-  @include max-screen(576) {
-    max-width: 100%;
-  }
+.slider-height, .slider-height2 {
+  height: 100vh; /* Fit the screen height */
+  width: 100%;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
 }
 
 .slider-content {
-  .title {
-    font-weight: 400;
-    font-size: 65px;
-    text-transform: capitalize;
-    span {
-      opacity: 0;
-      color: white;
-    }
-    @include max-screen(1200, 1600) {
-      font-size: 50px;
-    }
-    @include max-screen(992, 1199) {
-      font-size: 45px;
-    }
-    @include max-screen(768, 991) {
-      font-size: 35px;
-    }
-    @include max-screen(767) {
-      font-size: 30px;
-    }
-  }
+  opacity: 0; /* Initial state for animation */
+  transform: translateY(20px); /* Slide in from below */
+  transition: all 0.8s ease-in-out;
+}
 
-  .text {
-    font-size: 20px;
-    color: white;
-    text-transform: uppercase;
-    margin-bottom: 15px;
-    opacity: 0;
-    @include max-screen(768, 991) {
-      font-size: 16px;
-    }
-    @include max-screen(767) {
-      font-size: 18px;
-    }
+.slick-active .slider-content {
+  opacity: 1; /* Fade in on active slide */
+  transform: translateY(0); /* Slide to position */
+}
 
-    &.mb-25 {
-      @include max-screen(767) {
-        margin-bottom: 15px;
-      }
-    }
-  }
-  .btn {
+.slider-content .title {
+  font-weight: 400;
+  font-size: 65px;
+  text-transform: capitalize;
+  animation: fadeInDown 1s ease-in-out 0.3s forwards;
+  color: white;
+}
+
+.slider-content .text {
+  font-size: 20px;
+  color: white;
+  text-transform: uppercase;
+  margin-bottom: 15px;
+  animation: fadeInUp 1s ease-in-out 0.5s forwards;
+}
+
+.slider-content .btn {
+  animation: fadeInUp 1s ease-in-out 0.7s forwards;
+}
+
+/* Animation keyframes */
+@keyframes fadeInDown {
+  0% {
     opacity: 0;
-    &.mt-45 {
-      @include max-screen(767) {
-        margin-top: 30px;
-      }
-    }
+    transform: translateY(-20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
