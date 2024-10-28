@@ -860,7 +860,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Product Categories Section</title>
+    <title>Product Categories Carousel</title>
     <style>
         body {
             margin: 0;
@@ -868,32 +868,40 @@
             font-family: Arial, sans-serif;
         }
 
-        /* Product Categories */
-        .product-categories {
+        /* Carousel Container */
+        .carousel-container {
             display: flex;
             justify-content: center;
-            gap: 20px;
-            padding: 20px;
+            align-items: center;
+            overflow: hidden;
+            position: relative;
+            max-width: 100%;
+            padding: 20px 0;
             background-color: white;
-            flex-wrap: wrap;
         }
 
+        /* Carousel Wrapper */
+        .carousel-wrapper {
+            display: flex;
+            transition: transform 0.5s ease;
+            gap: 20px;
+            align-items: center;
+        }
+
+        /* Product Category Card */
         .product-category {
-            text-align: center;
-            flex: 1 1 150px;
+            flex: 0 0 160px;
             max-width: 160px;
-            margin: 10px;
+            text-align: center;
         }
 
-        .product-category img-wrapper {
-            width: 100%;
-            max-width: 160px;
-            height: 160px;
+        .product-category .img-wrapper {
+            width: 140px;
+            height: 140px;
             border-radius: 50%;
             overflow: hidden;
             background-size: cover;
             background-position: center;
-            position: relative;
             margin: 0 auto;
         }
 
@@ -902,119 +910,99 @@
             font-size: 14px;
         }
 
-        /* Banner Section */
-        .common-banner {
-            background-color: white;
-            padding: 50px 0 80px;
+        /* Arrow Buttons */
+        .carousel-button {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: none;
+            cursor: pointer;
+            padding: 10px;
+            font-size: 18px;
+            z-index: 1;
         }
 
-        .banner-thumb img {
-            width: 100%;
-            height: auto;
-            transition: transform 0.3s ease;
+        .prev {
+            left: 10px;
         }
 
-        .banner-thumb a:hover img {
-            transform: scale(1.05);
+        .next {
+            right: 10px;
         }
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 15px;
-        }
-
-        .row {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 15px;
-        }
-
-        .col-lg-3 {
-            flex: 1 1 25%;
-            max-width: 25%;
-        }
-
-        .col-lg-6 {
-            flex: 1 1 50%;
-            max-width: 50%;
-        }
-
-        .col-md-6 {
-            flex: 1 1 50%;
-            max-width: 50%;
-        }
-
-        /* Media Queries for Responsiveness */
+        /* Responsive Adjustments */
         @media (max-width: 768px) {
-            .product-categories {
-                gap: 10px;
-                padding: 10px;
+            .product-category {
+                flex: 0 0 120px;
+                max-width: 120px;
+            }
+            
+            .product-category .img-wrapper {
+                width: 100px;
+                height: 100px;
             }
 
-            .product-category img-wrapper {
-                width: 120px;
-                height: 120px;
-            }
-
-            .col-lg-3, .col-lg-6 {
-                flex: 1 1 100%;
-                max-width: 100%;
+            .carousel-button {
+                font-size: 16px;
+                padding: 8px;
             }
         }
     </style>
 </head>
 <body>
 
-    <div class="product-categories">
-        <div class="product-category" style="background: url('assets/img/popular/6.png') center/cover no-repeat;">
-            <p>Bedsheets</p>
-        </div>
-        <div class="product-category" style="background: url('assets/img/popular/7.png') center/cover no-repeat;">
-            <p>Comforter</p>
-        </div>
-        <div class="product-category" style="background: url('assets/img/popular/8.png') center/cover no-repeat;">
-            <p>Mattress Protector</p>
-        </div>
-        <div class="product-category" style="background: url('assets/img/popular/9.png') center/cover no-repeat;">
-            <p>Dohor</p>
-        </div>
-        <div class="product-category" style="background: url('assets/img/popular/11.png') center/cover no-repeat;">
-            <p>Pillows & Cushion</p>
-        </div>
-        <div class="product-category" style="background: url('assets/img/popular/10.png') center/cover no-repeat;">
-            <p>Hotel Linen & Beddings</p>
-        </div>
-    </div>
-
-    <!-- Common Banner Section -->
-    <div class="common-banner">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-3 col-md-6">
-                    <div class="banner-thumb">
-                        <a class="zoom-in d-block overflow-hidden position-relative" href="shop-grid-4-column.html">
-                            <img src="assets/img/banner/8.jpg" alt="banner-thumb-naile">
-                        </a>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6">
-                    <div class="banner-thumb">
-                        <a class="zoom-in d-block overflow-hidden position-relative" href="shop-grid-4-column.html">
-                            <img src="assets/img/banner/9.jpg" alt="banner-thumb-naile">
-                        </a>
-                    </div>
-                </div>
-                <div class="col-lg-6 col-md-12">
-                    <div class="banner-thumb">
-                        <a class="zoom-in d-block overflow-hidden position-relative" href="shop-grid-4-column.html">
-                            <img src="assets/img/banner/10.jpg" alt="banner-thumb-naile">
-                        </a>
-                    </div>
-                </div>
+    <div class="carousel-container">
+        <button class="carousel-button prev" onclick="scrollCarousel(-1)">&#10094;</button>
+        
+        <div class="carousel-wrapper">
+            <div class="product-category">
+                <div class="img-wrapper" style="background-image: url('assets/img/popular/6.png');"></div>
+                <p>Bedsheets</p>
+            </div>
+            <div class="product-category">
+                <div class="img-wrapper" style="background-image: url('assets/img/popular/7.png');"></div>
+                <p>Comforter</p>
+            </div>
+            <div class="product-category">
+                <div class="img-wrapper" style="background-image: url('assets/img/popular/8.png');"></div>
+                <p>Mattress Protector</p>
+            </div>
+            <div class="product-category">
+                <div class="img-wrapper" style="background-image: url('assets/img/popular/9.png');"></div>
+                <p>Dohor</p>
+            </div>
+            <div class="product-category">
+                <div class="img-wrapper" style="background-image: url('assets/img/popular/11.png');"></div>
+                <p>Pillows & Cushion</p>
+            </div>
+            <div class="product-category">
+                <div class="img-wrapper" style="background-image: url('assets/img/popular/10.png');"></div>
+                <p>Hotel Linen & Beddings</p>
             </div>
         </div>
+        
+        <button class="carousel-button next" onclick="scrollCarousel(1)">&#10095;</button>
     </div>
+
+    <script>
+        let currentIndex = 0;
+
+        function scrollCarousel(direction) {
+            const carousel = document.querySelector('.carousel-wrapper');
+            const items = document.querySelectorAll('.product-category');
+            const itemWidth = items[0].offsetWidth + 20; // Including gap
+            const visibleItems = Math.floor(document.querySelector('.carousel-container').offsetWidth / itemWidth);
+
+            // Calculate max index for scrolling
+            const maxIndex = items.length - visibleItems;
+            
+            // Update index based on direction and boundaries
+            currentIndex = Math.min(Math.max(currentIndex + direction, 0), maxIndex);
+            carousel.style.transform = `translateX(-${currentIndex * itemWidth}px)`;
+        }
+    </script>
 
 </body>
 </html>
